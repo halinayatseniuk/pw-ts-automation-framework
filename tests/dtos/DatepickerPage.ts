@@ -48,10 +48,8 @@ export class DatepickerPage {
             while(!(await this.visibleYearOptions()).includes(yearToSelect.toString())) {
             const firstElement = parseInt((await this.visibleYearOptions()).split('/n')[0], 10);
             if(firstElement > yearToSelect) {
-                await this.page.waitForTimeout(5000);
                 await this.previousYear.click();
             } else {
-                await this.page.waitForTimeout(5000);
                 await this.nextYear.click();
             }
         }
@@ -59,7 +57,6 @@ export class DatepickerPage {
     }
 
     public async selectMonth(monthToSelect : string) {
-        await this.page.waitForTimeout(5000);
         await this.monthTable.locator(`td span.month:has-text('${monthToSelect}')`).first().click();
     }
 
