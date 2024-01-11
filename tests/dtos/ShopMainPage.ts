@@ -69,6 +69,18 @@ export class ShopMainPage {
         return this.page.locator(".confirm_shippment_options tr td.align_left address");
     }
 
+    public get totalPriceInCart() {
+        return this.page.locator(".dropdown .cart_total");
+    }
+
+    public get totalProductQuantityInCart() {
+        return this.page.locator(".topcart .dropdown span.label-orange");
+    }
+
+    public get productPrice() {
+        return this.page.locator(".productfilneprice");
+    }
+
     public async shoesSizeRadio(size : string) {
         await this.page.locator(".input-group").getByLabel(size).check();
     }
@@ -109,9 +121,21 @@ export class ShopMainPage {
         return this;
     }
 
-    public async searchAndAddProduct(productName : string) {
-        await this.searchForTheProduct(productName);
-        await this.addToCartProductPage.click();
+    public async searchAndAddProductSeveralTimes(productName : string, quantity: number) : Promise<number> {
+        let totalPrice = 0.00;
+        for ( let i = 0; i < quantity; i++ ) {
+            await this.searchForTheProduct(productName);
+
+            const numericString = (await this.productPrice.innerText()).replace(/[^0-9.]/g, '');
+            totalPrice = totalPrice + parseFloat(numericString);
+
+            await this.addToCartProductPage.click();
+        }
+        return totalPrice;
+    }
+
+    public async searchAndAddProduct(productName : string) : Promise<number> {
+        return await this.searchAndAddProductSeveralTimes(productName, 1);
     }
 
     public async goWithGuestCheckout() : Promise<GuestInfo> {

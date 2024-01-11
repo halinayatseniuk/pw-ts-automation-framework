@@ -31,3 +31,15 @@ test('Sprawdź czy dane na ekranie wprowadzania adresu są walidowane poprawnie 
     let expectedCusomerAddressData = guestInfo.street + "\n" + guestInfo.city + " " + guestInfo.region + " " + guestInfo.zipCode + "\n" + guestInfo.country;
     expect(await shopMainPage.customerAddressDataOnConfirmationPage.innerText()).toContain(expectedCusomerAddressData);
 });
+
+test('Sprawdź czy po dodaniu artykułu do koszyka poprawnie zmienia się ilość oraz wartość koszyka nad paskiem menu strony', async () => {
+    let firstProductPrice = await shopMainPage.searchAndAddProduct("Absolute Anti-Age Spot Replenishing Unifying TreatmentSPF 15");
+    let secondProductPrice = await shopMainPage.searchAndAddProductSeveralTimes("Pour Homme Eau de Toilette", 2);
+    let thirdProductPrice = await shopMainPage.searchAndAddProduct("Delicate Oil-Free Powder Blush");
+
+    let expectedTotalPrice1 = "$" + (firstProductPrice + secondProductPrice + thirdProductPrice).toFixed(2);
+    expect(await shopMainPage.totalPriceInCart.innerText()).toEqual(expectedTotalPrice1.toString());
+
+    let expectedProductQuantity = '4';
+    expect(await shopMainPage.totalProductQuantityInCart.innerText()).toEqual(expectedProductQuantity);
+});
