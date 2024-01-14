@@ -6,7 +6,7 @@ let shopMainPage: ShopMainPage;
 test.beforeEach(async ({ page }) => {
     await page.goto('https://automationteststore.com/');
     shopMainPage = new ShopMainPage(page);
-  });
+});
 
 test('Napisz test dodający koszulkę oraz buty do koszyka (bez użycia wyszukiwarki), następnie przy pomocy wyszukiwarki dodaj jakiś kosmetyk i doprowadź zamówienie do finalizacji :) - sprawdź czy wszystko poszło OK', async () => {
     await shopMainPage.navigateToTshirtsProducts()

@@ -3,7 +3,7 @@ import { GuestCheckoutPage, GuestInfo } from './GuestCheckoutPage';
 
 export class ShopMainPage {
 
-    constructor(private page: Page) {}
+    constructor(private page: Page) { }
 
     public get addToCartProductList() {
         return "div.pricetag [title='Add to Cart']";
@@ -81,15 +81,15 @@ export class ShopMainPage {
         return this.page.locator(".productfilneprice");
     }
 
-    public async shoesSizeRadio(size : string) {
+    public async shoesSizeRadio(size: string) {
         await this.page.locator(".input-group").getByLabel(size).check();
     }
 
-    public filterShoesByName(name : string) : Locator {
-        return this.productsList.filter({hasText : name});
+    public filterShoesByName(name: string): Locator {
+        return this.productsList.filter({ hasText: name });
     }
 
-    public findAvailableTshirt() : Locator {
+    public findAvailableTshirt(): Locator {
         return this.productsList.locator(this.addToCartProductList).first();
     }
 
@@ -103,7 +103,7 @@ export class ShopMainPage {
         await this.tshirtsMenuOption.click();
     }
 
-    public async searchForTheProduct(productName : string) {
+    public async searchForTheProduct(productName: string) {
         await this.searchField.fill(productName);
         await this.page.keyboard.press('Enter');
         await expect(this.productTitle).toHaveText(productName);
@@ -121,9 +121,9 @@ export class ShopMainPage {
         return this;
     }
 
-    public async searchAndAddProductSeveralTimes(productName : string, quantity: number) : Promise<number> {
+    public async searchAndAddProductSeveralTimes(productName: string, quantity: number): Promise<number> {
         let totalPrice = 0.00;
-        for ( let i = 0; i < quantity; i++ ) {
+        for (let i = 0; i < quantity; i++) {
             await this.searchForTheProduct(productName);
 
             const numericString = (await this.productPrice.innerText()).replace(/[^0-9.]/g, '');
@@ -134,11 +134,11 @@ export class ShopMainPage {
         return totalPrice;
     }
 
-    public async searchAndAddProduct(productName : string) : Promise<number> {
+    public async searchAndAddProduct(productName: string): Promise<number> {
         return await this.searchAndAddProductSeveralTimes(productName, 1);
     }
 
-    public async goWithGuestCheckout() : Promise<GuestInfo> {
+    public async goWithGuestCheckout(): Promise<GuestInfo> {
         await this.guestCheckoutOption.check();
         await this.continueWithGuestCheckout.click();
         return await new GuestCheckoutPage(this.page).fillInGuestFormWithFakerData();

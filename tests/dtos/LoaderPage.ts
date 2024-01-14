@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 
 export class LoaderPage {
 
-    constructor(private page: Page) {}
+    constructor(private page: Page) { }
 
     public get loaderGif() {
         return this.page.locator("#loader");

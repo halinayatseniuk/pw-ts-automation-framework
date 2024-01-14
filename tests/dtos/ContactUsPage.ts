@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 
 export class ContactUsPage {
 
-    constructor(private page: Page) {}
+    constructor(private page: Page) { }
 
     // using placeholder attribute (playwright method)
     public get firstNameField() {
@@ -11,7 +11,7 @@ export class ContactUsPage {
 
     // using any attribute (playwright method)
     public get lastNameField() {
-        return this.page.getByRole('textbox', { name: "Last name"});
+        return this.page.getByRole('textbox', { name: "Last name" });
     }
 
     // using any attribute type

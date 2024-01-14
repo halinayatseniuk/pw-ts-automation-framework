@@ -1,4 +1,4 @@
-import { Page , expect } from "@playwright/test";
+import { Page, expect } from "@playwright/test";
 import { ContactUsPage } from './ContactUsPage';
 import { DropdownsPage } from './DropdownsPage';
 import { AutocompletePage } from './AutocompletePage';
@@ -7,7 +7,7 @@ import { LoaderPage } from './LoaderPage';
 
 export class MyCoursesPage {
 
-    constructor(private page: Page) {}
+    constructor(private page: Page) { }
 
     public get contactUsOption() {
         return this.page.locator("#contact-us");

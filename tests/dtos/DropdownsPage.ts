@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 
 export class DropdownsPage {
 
-    constructor(private page: Page) {}
+    constructor(private page: Page) { }
 
     public get getPage() {
         return this.page;
@@ -45,11 +45,11 @@ export class DropdownsPage {
     }
 
     public selectLanguageOption(title: string) {
-        return this.languageDropdown.selectOption({label: title});
+        return this.languageDropdown.selectOption({ label: title });
     }
 
     public selectToolOption(label: string) {
-        return this.toolDropdown.selectOption({value: label.toLowerCase()});
+        return this.toolDropdown.selectOption({ value: label.toLowerCase() });
     }
 
     public getCheckboxByLabel(label: string) {

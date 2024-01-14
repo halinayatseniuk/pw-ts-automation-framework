@@ -14,7 +14,7 @@ export interface GuestInfo {
 
 export class GuestCheckoutPage {
 
-    constructor(private page: Page) {}
+    constructor(private page: Page) { }
 
     public get firstNameField() {
         return this.page.locator("#guestFrm_firstname");
@@ -64,25 +64,25 @@ export class GuestCheckoutPage {
         return this.page.locator("button:has-text('Continue')");
     }
 
-    public async selectRandomCountry() : Promise<string> {
-        let countryIndex = faker.number.int({min : 1, max : await this.countryDropdownOptions.count() -1});
+    public async selectRandomCountry(): Promise<string> {
+        let countryIndex = faker.number.int({ min: 1, max: await this.countryDropdownOptions.count() - 1 });
         await this.countryDropdown.click();
-        await this.countryDropdown.selectOption({index : countryIndex});
+        await this.countryDropdown.selectOption({ index: countryIndex });
         return await this.countryDropdown.locator(`option:nth-child(${countryIndex + 1})`).innerText();
     }
 
-    public async selectRandomRegion() : Promise<string> {
+    public async selectRandomRegion(): Promise<string> {
         await this.page.waitForTimeout(1000);
-        let regionIndex = faker.number.int({min : 1, max : await this.regionDropdownOptions.count() -1});
+        let regionIndex = faker.number.int({ min: 1, max: await this.regionDropdownOptions.count() - 1 });
         await this.regionDropdown.click();
-        await this.regionDropdown.selectOption({index : regionIndex});
+        await this.regionDropdown.selectOption({ index: regionIndex });
         return await this.regionDropdown.locator(`option:nth-child(${regionIndex + 1})`).innerText();
     }
 
-    public async fillInGuestFormWithFakerData() : Promise<GuestInfo> {
+    public async fillInGuestFormWithFakerData(): Promise<GuestInfo> {
         let selectedCountry = await this.selectRandomCountry();
         let selectedRegion = await this.selectRandomRegion();
-        
+
         let enteredInfo: GuestInfo = {
             firstName: faker.person.firstName(),
             lastName: faker.person.lastName(),
@@ -92,7 +92,7 @@ export class GuestCheckoutPage {
             region: selectedRegion,
             country: selectedCountry,
             zipCode: faker.location.zipCode()
-          };
+        };
 
         await this.firstNameField.fill(enteredInfo.firstName);
         await this.lastNameField.fill(enteredInfo.lastName);

@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 
 export class DatepickerPage {
 
-    constructor(private page: Page) {}
+    constructor(private page: Page) { }
 
     public get dateInput() {
         return this.page.locator(".form-control");
@@ -44,10 +44,10 @@ export class DatepickerPage {
         return (await this.yearsTable.locator("td").allInnerTexts())[0];
     }
 
-    public async selectYear(yearToSelect : number) {
-            while(!(await this.visibleYearOptions()).includes(yearToSelect.toString())) {
+    public async selectYear(yearToSelect: number) {
+        while (!(await this.visibleYearOptions()).includes(yearToSelect.toString())) {
             const firstElement = parseInt((await this.visibleYearOptions()).split('/n')[0], 10);
-            if(firstElement > yearToSelect) {
+            if (firstElement > yearToSelect) {
                 await this.previousYear.click();
             } else {
                 await this.nextYear.click();
@@ -56,11 +56,11 @@ export class DatepickerPage {
         await this.yearsTable.locator(`td span.year:has-text('${yearToSelect}')`).first().click();
     }
 
-    public async selectMonth(monthToSelect : string) {
+    public async selectMonth(monthToSelect: string) {
         await this.monthTable.locator(`td span.month:has-text('${monthToSelect}')`).first().click();
     }
 
-    public async selectDay(dayToSelect : number) {
+    public async selectDay(dayToSelect: number) {
         await this.daysTable.locator(`[class='day']:has-text('${dayToSelect}')`).first().click();
     }
 }

@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 
 export class AutocompletePage {
 
-    constructor(private page: Page) {}
+    constructor(private page: Page) { }
 
     public get foodSearcher() {
         return this.page.getByPlaceholder("Food Item");
@@ -18,8 +18,8 @@ export class AutocompletePage {
 
     public async selectFoodByPosition(position: number) {
         let optionsAmount = await this.foodSearcherOptions.count();
-        if(position <= optionsAmount) {
-            let option = this.foodSearcherOptions.nth(position-1);
+        if (position <= optionsAmount) {
+            let option = this.foodSearcherOptions.nth(position - 1);
             let selectedFood = await option.textContent();
             await option.click();
             return selectedFood;
