@@ -13,6 +13,10 @@ export class ShopMainPage {
         return this.page.locator("nav.subnav a:has-text('Apparel & accessories')");
     }
 
+    public get apparelAndAccessoriesSubcategories() {
+        return ".subcategories";
+    }
+
     public get shoesMenuOption() {
         return this.page.locator("li a:has-text('Shoes')");
     }
@@ -95,11 +99,13 @@ export class ShopMainPage {
 
     public async navigateToShoesProducts() {
         await this.apparelAndAccessoriesMenu.hover();
+        await this.page.waitForSelector(this.apparelAndAccessoriesSubcategories);
         await this.shoesMenuOption.click();
     }
 
     public async navigateToTshirtsProducts() {
         await this.apparelAndAccessoriesMenu.hover();
+        await this.page.waitForSelector(this.apparelAndAccessoriesSubcategories);
         await this.tshirtsMenuOption.click();
     }
 
