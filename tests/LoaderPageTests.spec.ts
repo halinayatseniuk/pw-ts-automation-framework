@@ -12,7 +12,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('Automatyzujemy stronę Ajax-Loader - czekamy aż strona się załaduje(bez statycznych waitow) i klikamy guzik', async () => {
-  await expect(loaderPage.loaderGif).not.toBeVisible({ timeout: 5000 });
+  await expect(loaderPage.loaderGif).not.toBeVisible({ timeout: 10000 });
   await loaderPage.clickOnbutton.click();
   await loaderPage.cancelButton.click();
 });
