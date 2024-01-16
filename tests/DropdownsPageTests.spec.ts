@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { DropdownsPage } from './dtos/DropdownsPage';
-import { MyCoursesPage } from './dtos/MyCoursesPage';
+import { DropdownsPage } from '../dtos/DropdownsPage';
+import { MyCoursesPage } from '../dtos/MyCoursesPage';
 
 let myCoursesPage: MyCoursesPage;
 let dropdownsPage: DropdownsPage;

@@ -1,13 +1,11 @@
 import { test, expect } from '@playwright/test';
-import { ContactUsPage } from './dtos/ContactUsPage';
-import { MyCoursesPage } from './dtos/MyCoursesPage';
-
+import { ErrorMessages } from '../enums/ErrorMessages';
+import { ContactUsPage } from '../dtos/ContactUsPage';
+import { MyCoursesPage } from '../dtos/MyCoursesPage';
 import { faker } from '@faker-js/faker';
 
 let myCoursesPage: MyCoursesPage;
 let contactPage: ContactUsPage;
-const fieldsAreRequiredMessage = "Error: all fields are required";
-const invalidEmailValueMessage = "Error: Invalid email address";
 
 test.beforeEach(async ({ page }) => {
   myCoursesPage = new MyCoursesPage(page);
@@ -38,14 +36,47 @@ test('Uzupełniamy wszystkie dane i resetujemy - weryfikujemy czy wyczyściło p
   await expect(contactPage.commentsField).toBeEmpty();
 });
 
-// make this test parametrized one
-test('Wprowadzamy cześć danych i próbujemy wysłać - sprawdzamy komunikat błędu', async () => {
-  await contactPage.firstNameField.fill(faker.person.firstName());
-  await contactPage.lastNameField.fill(faker.person.lastName());
-  await contactPage.submitButton.click();
+[
+  {
+    testName: "with empty first name",
+    firstName: "",
+    lastName: faker.person.lastName(),
+    email: faker.internet.email(),
+    comment: faker.string.alphanumeric()
+  },
+  {
+    testName: "with empty second name",
+    firstName: faker.person.firstName(),
+    lastName: "",
+    email: faker.internet.email(),
+    comment: faker.string.alphanumeric()
+  },
+  {
+    testName: "with empty email",
+    firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    email: "",
+    comment: faker.string.alphanumeric()
+  },
+  {
+    testName: "with empty comments",
+    firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    email: faker.internet.email(),
+    comment: ""
+  }
+]
+  .forEach(testData => {
+    test(`Wprowadzamy cześć danych i próbujemy wysłać - sprawdzamy komunikat błędu ${testData.testName}`, async () => {
+      await contactPage.firstNameField.fill(testData.firstName);
+      await contactPage.lastNameField.fill(testData.lastName);
+      await contactPage.emailField.fill(testData.email);
+      await contactPage.commentsField.fill(testData.comment);
+      await contactPage.submitButton.click();
 
-  expect(await contactPage.errorMessage).toContain(fieldsAreRequiredMessage);
-});
+      expect(await contactPage.errorMessage).toContain(ErrorMessages.FieldsAreRequired);
+    });
+  })
 
 test('Wprowadzamy błędny email i sprawdzamy komunikat', async () => {
   await contactPage.firstNameField.fill(faker.person.firstName());
@@ -54,5 +85,5 @@ test('Wprowadzamy błędny email i sprawdzamy komunikat', async () => {
   await contactPage.commentsField.fill(faker.string.alphanumeric(20));
   await contactPage.submitButton.click();
 
-  expect(await contactPage.errorMessage).toContain(invalidEmailValueMessage);
+  expect(await contactPage.errorMessage).toContain(ErrorMessages.InvalidEmailValue);
 });

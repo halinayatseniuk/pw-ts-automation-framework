@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { AutocompletePage } from './dtos/AutocompletePage';
-import { MyCoursesPage } from './dtos/MyCoursesPage';
+import { AutocompletePage } from '../dtos/AutocompletePage';
+import { MyCoursesPage } from '../dtos/MyCoursesPage';
 
 let myCoursesPage: MyCoursesPage;
 let autocompletePage: AutocompletePage;

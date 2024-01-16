@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { LoaderPage } from './dtos/LoaderPage';
-import { MyCoursesPage } from './dtos/MyCoursesPage';
+import { LoaderPage } from '../dtos/LoaderPage';
+import { MyCoursesPage } from '../dtos/MyCoursesPage';
 
 let myCoursesPage: MyCoursesPage;
 let loaderPage: LoaderPage;
