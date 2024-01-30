@@ -67,7 +67,7 @@ test('Uzupełniamy wszystkie dane i resetujemy - weryfikujemy czy wyczyściło p
   }
 ]
   .forEach(testData => {
-    test(`Wprowadzamy cześć danych i próbujemy wysłać - sprawdzamy komunikat błędu ${testData.testName}`, async () => {
+    test(`@Negative Wprowadzamy cześć danych i próbujemy wysłać - sprawdzamy komunikat błędu ${testData.testName}`, async () => {
       await contactPage.firstNameField.fill(testData.firstName);
       await contactPage.lastNameField.fill(testData.lastName);
       await contactPage.emailField.fill(testData.email);
@@ -78,7 +78,7 @@ test('Uzupełniamy wszystkie dane i resetujemy - weryfikujemy czy wyczyściło p
     });
   })
 
-test('Wprowadzamy błędny email i sprawdzamy komunikat', async () => {
+test('@Negative Wprowadzamy błędny email i sprawdzamy komunikat', async () => {
   await contactPage.firstNameField.fill(faker.person.firstName());
   await contactPage.lastNameField.fill(faker.person.lastName());
   await contactPage.emailField.fill(faker.string.alphanumeric(10));
